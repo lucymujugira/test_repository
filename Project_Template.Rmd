@@ -11,6 +11,9 @@ If you don't have your own data, options for places to find data are listed on h
 
 You might start by setting up an R Project, importing your data, previewing the data, etc. 
 
+This dataset tracks the updates made on the dataset "COVID-19 Community Vulnerability Crosswalk - Rank Ordered by Score"
+
+
 ```{r}
 
 ```
