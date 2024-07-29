@@ -17,9 +17,31 @@ This dataset tracks the updates made on the dataset "COVID-19 Community Vulnerab
 
 ```{r}
 
+
+COVID_19_Community_Vulnerability_Crosswalk_Rank_Ordered_by_Score_ <- read_csv("C:/Users/lucym/Downloads/COVID-19_Community_Vulnerability_Crosswalk_-_Rank_Ordered_by_Score_.csv")
+
+covid_19_ranked_by_score <- COVID_19_Community_Vulnerability_Crosswalk_Rank_Ordered_by_Score_
+covid_19_ranked_by_score
+
+#rename columns hardest hit area,   `Low Income Area (LIA) Census Tract (Poverty Percentage)`, 
+
+
+
 ```
 
 **describe** what your data looks like and **where** you got it. Identify what the variables and samples are, or point to a data dictionary. Describe how the data was originally created. 
+
+Data from healthcare.gov- COVID-19 community vulnerability crosswalk (ordered by score)
+
+Looks at communities down to the census track based of four key datasets
+Hardest hit area (HHA)
+Low income area (LIA)
+Tribal community 
+Rural community 
+
+
+
+
 
 
 # Data Cleaning/Wrangling
@@ -30,14 +52,40 @@ You might also research other methods to include here, especially if your data i
 
 ```{r}
 
+#looked at the different variables 
+
+rename_covid_19 <- rename(covid_19_ranked_by_score, 
+"State" = STATE,
+"Low_Income_Census_Tract" = 'Low Income Area (LIA) Census Tract (Poverty Percentage)',
+"Hardest_hit_area" = 'Hardest Hit Area (HHA)',
+)
+
+
+covid_19_ranked_by_score <- rename_covid_19
+
+#select(covid_19_ranked_by_score, State, County)
+     
+    # County, Max Possible Score, Hardest_hit_area, HHA,  Low_Income_Census_Tract)
+
+
+
+
 ```
 
+```{r}
+select(covid_19_ranked_by_score, State, Hardest_hit_area, Low_Income_Census_Tract)
+```
 
 # Data Visualization
 
 Create some visualizations of your data using the esquisse app or the ggplot2 package.
 
 ```{r}
+
+
+
+
+
 
 ```
 
