@@ -34,7 +34,7 @@ covid_19_ranked_by_score
 Data from healthcare.gov- COVID-19 community vulnerability crosswalk (ordered by score)
 
 Looks at communities down to the census track based of four key datasets
-Hardest hit area (HHA) (sustained hotspot + hotstop )
+Hardest hit area (HHA) (sustained hotspot + hotspot )
 Low income area (LIA)
 Tribal community 
 Rural community 
@@ -77,17 +77,20 @@ covid_19_ranked_by_score <- rename_covid_19
 
 
 
-covid_19_ranked_by_score_WA <- covid_19_ranked_by_score %>% 
-  mutate(Low_Income_Census_Tract_Percentage = Low_Income_Census_Tract * 100) %>% 
-  filter(State == "WASHINGTON" & Hardest_hit_area == "SustainedHotspot") %>% 
-  select(State, County, Low_Income_Census_Tract, Hardest_hit_area) %>% 
-  drop_na(County) 
+covid_19_ranked_by_score_WA <-covid_19_ranked_by_score%>% 
+mutate(Low_Income_Census_Tract_Percentage = Low_Income_Census_Tract * 100)%>% 
+   filter(State == "WASHINGTON", Hardest_hit_area %in% c("SustainedHotspot","Hotspot"))%>% 
+    select(State, County, Hardest_hit_area, Low_Income_Census_Tract_Percentage )%>% 
+      drop_na(County,Low_Income_Census_Tract_Percentage) %>% 
+        group_by(Hardest_hit_area) 
+  
 
 
 
 covid_19_ranked_by_score_WA
 
-#ctrl+shift+m %>% 
+
+
 
 ```
 ##July 30th Tuesday 
@@ -95,6 +98,23 @@ covid_19_ranked_by_score_WA
 #filter by location WA state 
 # drop na values 
 # multiply low income tract by 100 
+#group_by(Hardest_hit_area)
+
+#ctrl+shift+m %>% 
+#
+
+%>% 
+#summarize(average_low_income_census_tract = mean(Low_Income_Census_Tract_Percentage))
+
+covid_19_ranked_by_score_WA <- covid_19_ranked_by_score %>% 
+  mutate(Low_Income_Census_Tract_Percentage = Low_Income_Census_Tract * 100) %>% 
+  filter(State == "WASHINGTON" & Hardest_hit_area == "SustainedHotspot") %>% 
+  select(State, County, Low_Income_Census_Tract, Hardest_hit_area) %>% 
+  drop_na(County) 
+covid_19_ranked_by_score_WA
+
+
+
 
 
 
@@ -107,6 +127,16 @@ Create some visualizations of your data using the esquisse app or the ggplot2 pa
 
 
 
+ggplot(covid_19_ranked_by_score_WA) +
+  aes(
+    x = County,
+    y = Low_Income_Census_Tract_Percentage,
+    fill = Hardest_hit_area
+  ) +
+  geom_col() +
+  scale_fill_hue(direction = 1) +
+  theme_minimal() +
+  ylim(0, 100)
 
 
 
@@ -120,6 +150,9 @@ Perform a **simple analysis** of your data. This can involve summarizing the dat
 Don't forget to describe what analysis you performed and why. Provide some simple **interpretation** about what your analysis might indicate about your data.
 
 ```{r}
+
+
+
 
 ```
 
