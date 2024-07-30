@@ -34,7 +34,7 @@ covid_19_ranked_by_score
 Data from healthcare.gov- COVID-19 community vulnerability crosswalk (ordered by score)
 
 Looks at communities down to the census track based of four key datasets
-Hardest hit area (HHA)
+Hardest hit area (HHA) (sustained hotspot + hotstop )
 Low income area (LIA)
 Tribal community 
 Rural community 
@@ -73,8 +73,31 @@ covid_19_ranked_by_score <- rename_covid_19
 ```
 
 ```{r}
-select(covid_19_ranked_by_score, State, Hardest_hit_area, Low_Income_Census_Tract)
+#select(covid_19_ranked_by_score, State, Hardest_hit_area, Low_Income_Census_Tract)
+
+
+
+covid_19_ranked_by_score_WA <- covid_19_ranked_by_score %>% 
+  mutate(Low_Income_Census_Tract_Percentage = Low_Income_Census_Tract * 100) %>% 
+  filter(State == "WASHINGTON" & Hardest_hit_area == "SustainedHotspot") %>% 
+  select(State, County, Low_Income_Census_Tract, Hardest_hit_area) %>% 
+  drop_na(County) 
+
+
+
+covid_19_ranked_by_score_WA
+
+#ctrl+shift+m %>% 
+
 ```
+##July 30th Tuesday 
+#filter by sustained hotspots 
+#filter by location WA state 
+# drop na values 
+# multiply low income tract by 100 
+
+
+
 
 # Data Visualization
 
